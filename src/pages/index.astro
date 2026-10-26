@@ -2,7 +2,10 @@
 import Layout from "../layouts/Layout.astro";
 import SectionContainer from "../components/SectionContainer.astro";
 import Hero from "../components/Hero.astro";
+import Experience from "../components/Experience.astro";
 import Projects from "../components/Projects.astro";
+import SuitCase from "../components/icons/SuitCase.astro";
+import Me from "../components/icons/Me.astro";
 ---
 
 <Layout
@@ -15,10 +18,26 @@ import Projects from "../components/Projects.astro";
     >
         <Hero />
     </SectionContainer>
+
+    <SectionContainer
+        id="experience"
+        class="py-16 max-w-200 mx-auto section md:py-36 scroll-m-20 w-full container px-4 sm:px-6 lg:px-0"
+    >
+        <h2 class="text-2xl sm:text-3xl font-bold mb-8 flex items-center gap-x-3 text-[#f5f5f5]">
+            <Me class="size-7" />
+            Experiencia laboral
+        </h2>
+        <Experience />
+    </SectionContainer>
+
     <SectionContainer
         id="projects"
         class="py-16 max-w-200 mx-auto section md:py-36 scroll-m-20 w-full container px-4 sm:px-6 lg:px-0"
     >
+        <h2 class="text-2xl sm:text-3xl font-bold mb-8 flex items-center gap-x-3 text-[#f5f5f5]">
+            <SuitCase class="size-7" />
+            Proyectos
+        </h2>
         <Projects />
     </SectionContainer>
 </Layout>
