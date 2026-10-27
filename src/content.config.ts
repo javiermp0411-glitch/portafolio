@@ -8,7 +8,7 @@ const projects = defineCollection({
     company: z.string().optional(),
     title: z.string(),
     description: z.string(),
-    logo: image(),
+    logo: image().optional(),
     imgs: z.object({
       main: image(),
       others: z.array(image()).optional(),

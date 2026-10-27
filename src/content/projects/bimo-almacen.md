@@ -7,7 +7,7 @@ imgs:
   main: "../../assets/projects/bimo/almacen/bimo-almacen-landing.webp"
 links:
   demo: "https://github.com/Arellanox/nuevo_checkup"
-  github: "https://github.com/Arellanox/nuevo_checkup"
+  github: "https://github.com/Arellanox/nuevo_checkup/tree/almacen"
 techstack: ["PHP", "JavaScript", "MySQL", "Bootstrap"]
 personal: false
 approach: Mientras nos encontrábamos en nuestras clases, representantes de la empresa BIMO visitaron nuestra universidad para impartir una charla dirigida a los estudiantes de quinto cuatrimestre que estaban por iniciar su estadía. Debido a una confusión en la programación, creyeron que nuestro grupo también estaba por comenzar esa etapa, cuando en realidad aún nos faltaban ocho meses. Aun así, vi la visita como una oportunidad y, al finalizar la charla, me acerqué al ingeniero en sistemas y a la licenciada de recursos humanos de la empresa. Les compartí mi interés en colaborar con ellos y mi entusiasmo por aprender, dejando en claro que estaba dispuesto a dedicar tiempo después de clases si me brindaban la oportunidad. El ingeniero respondió de manera positiva y me invitó a mantener el contacto. Como resultado, en noviembre de 2024 comencé a colaborar con BIMO bajo un esquema no contractual, enfocado en entregables específicos. Esta experiencia marcó el inicio de una etapa profesional valiosa y formativa.
