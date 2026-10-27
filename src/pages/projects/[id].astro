@@ -5,6 +5,28 @@ import SectionContainer from "../../components/SectionContainer.astro";
 import GitHub from "../../components/icons/GitHub.astro";
 import Link from "../../components/icons/Link.astro";
 import ArrowBackUp from "../../components/icons/ArrowBackUp.astro";
+import At from "../../components/icons/At.astro";
+import AstroIcon from "../../components/icons/AstroIcon.astro";
+import Tailwind from "../../components/icons/Tailwind.astro";
+import TypeScript from "../../components/icons/TypeScript.astro";
+import JavaScript from "../../components/icons/JavaScript.astro";
+import PHP from "../../components/icons/Php.astro";
+import MySQL from "../../components/icons/MySQL.astro";
+import Bootstrap from "../../components/icons/Bootstrap.astro";
+import React from "../../components/icons/React.astro";
+import Node from "../../components/icons/Node.astro";
+
+const TECH_ICONS: Record<string, any> = {
+    Astro: AstroIcon,
+    Tailwind: Tailwind,
+    TypeScript,
+    JavaScript,
+    PHP,
+    MySQL,
+    Bootstrap,
+    React,
+    Node,
+};
 
 export async function getStaticPaths() {
     const projects = await getCollection("projects");
@@ -15,7 +37,17 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-const { title, description, company, pubDate, links, techstack, imgs, approach, deliverables } = project.data;
+const {
+    title,
+    description,
+    company,
+    pubDate,
+    links,
+    techstack,
+    imgs,
+    approach,
+    deliverables,
+} = project.data;
 const { Content } = await render(project);
 
 const formattedDate = new Date(pubDate).toLocaleDateString("es-ES", {
@@ -26,49 +58,42 @@ const formattedDate = new Date(pubDate).toLocaleDateString("es-ES", {
 ---
 
 <Layout title={`${title} - Javier Montero`} description={description}>
-    <SectionContainer class="py-16 max-w-200 mx-auto section md:py-24 scroll-m-20 w-full container px-4 sm:px-6 lg:px-0">
-        <div class="mb-6">
-            <a
-                href="/#projects"
-                class="inline-flex items-center gap-2 text-xs md:text-sm text-gray-400 hover:text-white transition bg-white/5 border border-gray-800 px-3 py-1.5 rounded-full"
-            >
-                <ArrowBackUp class="size-4" />
-                Volver a proyectos
-            </a>
-        </div>
-
-        <div class="flex flex-col space-y-6 bg-transparent border border-gray-800 rounded-3xl p-6 sm:p-8 md:p-10 shadow-xl">
+    <SectionContainer class="section mx-auto w-full max-w-200 scroll-m-20 container px-4 py-16 sm:px-6 md:py-24 lg:px-0">
+        <article class="flex flex-col gap-6 rounded-2xl border border-gray-800 bg-transparent p-5 shadow-lg transition-all duration-300 sm:p-6 md:p-8">
             {/* Header */}
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div>
-                    <div class="flex items-center gap-2 flex-wrap mb-2">
+            <header class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                <div class="min-w-0">
+                    <div class="mb-2 flex flex-wrap items-center gap-x-3 gap-y-2">
                         <h1
                             transition:name={`title-${project.id}`}
-                            class="text-2xl sm:text-3xl md:text-4xl font-bold text-[#f5f5f5]"
+                            class="text-2xl font-bold text-[#f5f5f5] sm:text-3xl md:text-4xl"
                         >
                             {title}
                         </h1>
                         {company && (
-                            <span class="px-3 py-1 text-xs md:text-sm font-medium bg-white/10 border border-white/10 rounded-full text-[#f5f5f5]/90">
+                            <span class="flex items-center gap-1.5 text-sm text-gray-400">
+                                <span class="flex size-4 shrink-0 items-center justify-center text-gray-500 [&>svg]:size-4">
+                                    <At aria-hidden="true" />
+                                </span>
                                 {company}
                             </span>
                         )}
                     </div>
-                    <time class="text-xs md:text-sm text-gray-400 font-medium">
+                    <time class="text-xs font-medium text-gray-400">
                         Publicado el {formattedDate}
                     </time>
                 </div>
 
-                <div class="flex items-center gap-3 flex-wrap">
+                <div class="flex flex-wrap items-center gap-3">
                     {links?.github && links.github !== "" && (
                         <a
                             href={links.github}
                             target="_blank"
                             rel="noopener noreferrer"
-                            class="flex items-center gap-2 text-xs md:text-sm font-medium text-gray-300 bg-white/5 border border-gray-700 hover:bg-white/10 hover:text-white px-4 py-2 rounded-full transition"
+                            class="flex items-center gap-2 rounded-full border border-gray-700 bg-white/5 px-3.5 py-2 text-sm font-medium text-gray-300 transition hover:bg-white/10 hover:text-white"
                         >
                             <GitHub class="size-4" />
-                            Ver Código
+                            Código
                         </a>
                     )}
                     {links?.demo && links.demo !== "" && (
@@ -76,91 +101,116 @@ const formattedDate = new Date(pubDate).toLocaleDateString("es-ES", {
                             href={links.demo}
                             target="_blank"
                             rel="noopener noreferrer"
-                            class="flex items-center gap-2 text-xs md:text-sm font-medium text-gray-900 bg-white hover:bg-gray-200 px-4 py-2 rounded-full transition shadow-sm"
+                            class="flex items-center gap-2 rounded-full bg-white px-3.5 py-2 text-sm font-medium text-gray-900 shadow-sm transition hover:bg-gray-200"
                         >
                             <Link class="size-4" />
-                            Sitio Web
+                            Sitio web
                         </a>
                     )}
                 </div>
-            </div>
+            </header>
 
             {/* Description */}
-            <p class="text-base sm:text-lg text-gray-300/90 leading-relaxed">
+            <p class="text-sm leading-relaxed text-gray-300/90">
                 {description}
             </p>
 
             {/* Main Image */}
             {imgs?.main && (
-                <div class="overflow-hidden rounded-2xl border border-gray-800 my-4">
+                <div class="my-2 overflow-hidden rounded-2xl border border-gray-800">
                     <img
                         src={imgs.main.src}
                         alt={`Vista principal de ${title}`}
-                        class="w-full h-auto object-cover"
+                        transition:name={`image-${project.id}`}
+                        class="h-auto w-full object-cover"
                     />
                 </div>
             )}
 
             {/* Tech Stack */}
-            <div class="flex flex-col gap-2 pt-2">
-                <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Tecnologías</h3>
-                <div class="flex items-center gap-2 flex-wrap">
-                    {techstack.map((tech) => (
-                        <span class="px-3 py-1 text-xs md:text-sm bg-white/5 border border-gray-700/60 rounded-full text-gray-300">
-                            {tech}
-                        </span>
-                    ))}
+            <div class="flex flex-col gap-3 border-t border-gray-800 pt-5">
+                <h2 class="text-sm font-semibold uppercase tracking-wider text-gray-400">
+                    Tecnologías
+                </h2>
+                <div class="flex flex-wrap items-center gap-2.5">
+                    {techstack.map((tech) => {
+                        const IconComponent = TECH_ICONS[tech];
+                        return (
+                            <span
+                                class="flex min-h-10 min-w-10 items-center justify-center gap-2 rounded-xl border border-gray-700/60 bg-white/5 px-2.5 py-1.5 text-sm text-gray-300 transition-all duration-300 hover:scale-105 hover:border-gray-600 hover:bg-white/10 [&>svg]:size-6 [&>svg]:shrink-0"
+                                title={tech}
+                            >
+                                {IconComponent ? (
+                                    <IconComponent />
+                                ) : (
+                                    <span>{tech}</span>
+                                )}
+                            </span>
+                        );
+                    })}
                 </div>
             </div>
 
             {/* Approach / Story */}
             {approach && (
-                <div class="flex flex-col gap-2 pt-4 border-t border-gray-800">
-                    <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Contexto / Enfoque</h3>
-                    <p class="text-sm sm:text-base text-gray-300 leading-relaxed">
+                <section class="flex flex-col gap-3 border-t border-gray-800 pt-5">
+                    <h2 class="text-sm font-semibold uppercase tracking-wider text-gray-400">
+                        Contexto / Enfoque
+                    </h2>
+                    <p class="text-sm leading-relaxed text-gray-300 sm:text-base">
                         {approach}
                     </p>
-                </div>
+                </section>
             )}
 
             {/* Deliverables */}
             {deliverables && deliverables.length > 0 && (
-                <div class="flex flex-col gap-6 pt-4 border-t border-gray-800">
-                    <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Entregables y Módulos</h3>
-                    <div class="grid grid-cols-1 gap-6">
+                <section class="flex flex-col gap-5 border-t border-gray-800 pt-5">
+                    <h2 class="text-sm font-semibold uppercase tracking-wider text-gray-400">
+                        Entregables y módulos
+                    </h2>
+                    <div class="grid grid-cols-1 gap-4">
                         {deliverables.map((item, idx) => (
-                            <div class="bg-white/[0.02] border border-gray-800 rounded-2xl p-5 flex flex-col gap-3">
-                                <h4 class="text-base sm:text-lg font-semibold text-[#f5f5f5]">
+                            <article class="flex flex-col gap-3 rounded-2xl border border-gray-800 bg-white/[0.02] p-5 transition-all duration-300 hover:border-gray-700 hover:bg-white/[0.03]">
+                                <h3 class="text-lg font-semibold text-[#f5f5f5] sm:text-xl">
                                     {idx + 1}. {item.title}
-                                </h4>
-                                <p class="text-sm text-gray-300/80">
+                                </h3>
+                                <p class="text-sm leading-relaxed text-gray-300/90">
                                     {item.description}
                                 </p>
                                 {item.img && (
-                                    <div class="overflow-hidden rounded-xl border border-gray-800 my-2">
-                                        <img src={item.img.src} alt={item.title} class="w-full h-auto object-cover" />
+                                    <div class="my-1 overflow-hidden rounded-xl border border-gray-800">
+                                        <img
+                                            src={item.img.src}
+                                            alt={item.title}
+                                            class="h-auto w-full object-cover"
+                                        />
                                     </div>
                                 )}
                                 {item.metrics && item.metrics.length > 0 && (
-                                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-2">
+                                    <div class="mt-1 grid grid-cols-2 gap-3 sm:grid-cols-3">
                                         {item.metrics.map((metric) => (
-                                            <div class="bg-white/5 border border-gray-800/80 rounded-xl p-3 text-center">
-                                                <div class="text-lg font-bold text-white">{metric.value}</div>
-                                                <div class="text-xs text-gray-400">{metric.label}</div>
+                                            <div class="rounded-xl border border-gray-800/80 bg-white/5 p-3 text-center">
+                                                <div class="text-lg font-bold text-white">
+                                                    {metric.value}
+                                                </div>
+                                                <div class="text-xs text-gray-400">
+                                                    {metric.label}
+                                                </div>
                                             </div>
                                         ))}
                                     </div>
                                 )}
-                            </div>
+                            </article>
                         ))}
                     </div>
-                </div>
+                </section>
             )}
 
             {/* Markdown slot content if any */}
-            <div class="prose prose-invert max-w-none pt-4 border-t border-gray-800">
+            <div class="prose prose-invert max-w-none border-t border-gray-800 pt-5">
                 <Content />
             </div>
-        </div>
+        </article>
     </SectionContainer>
 </Layout>
