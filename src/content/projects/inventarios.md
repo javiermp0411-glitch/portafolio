@@ -11,7 +11,6 @@ imgs:
     - "../../assets/projects/inventarios/inventarios-render-5.webp"
     - "../../assets/projects/inventarios/inventarios-render-6.webp"
 links:
-  demo: "https://github.com/JavierMNew/inventarios"
   github: "https://github.com/JavierMNew/inventarios"
 techstack: ["Astro", "Supabase", "PostgreSQL", "React", "JavaScript", "TypeScript", "Tailwind", "Shadcn/UI"]
 personal: true

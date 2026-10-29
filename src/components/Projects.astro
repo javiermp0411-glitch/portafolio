@@ -2,28 +2,8 @@
 import SuitCase from "./icons/SuitCase.astro";
 import GitHub from "./icons/GitHub.astro";
 import Link from "./icons/Link.astro";
-import AstroIcon from "./icons/AstroIcon.astro";
-import Tailwind from "./icons/Tailwind.astro";
-import TypeScript from "./icons/TypeScript.astro";
-import JavaScript from "./icons/JavaScript.astro";
-import PHP from "./icons/Php.astro";
-import MySQL from "./icons/MySQL.astro";
-import Bootstrap from "./icons/Bootstrap.astro";
-import React from "./icons/React.astro";
-import Node from "./icons/Node.astro";
+import TechStack from "./TechStack.astro";
 import At from "./icons/At.astro";
-
-const TECH_ICONS: Record<string, any> = {
-    Astro: AstroIcon,
-    Tailwind: Tailwind,
-    TypeScript: TypeScript,
-    JavaScript: JavaScript,
-    PHP: PHP,
-    MySQL: MySQL,
-    Bootstrap: Bootstrap,
-    React: React,
-    Node: Node,
-};
 
 import { getCollection } from "astro:content";
 
@@ -103,23 +83,7 @@ const sortedProjects = projects.sort(
                 {/* Tech Stack & Links Footer */}
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-3 border-t border-gray-800/80">
                     {/* Tech stack: show the icon when available and a readable fallback otherwise. */}
-                    <div class="flex items-center gap-2.5 flex-wrap">
-                        {techstack.map((tech) => {
-                            const IconComponent = TECH_ICONS[tech];
-                            return (
-                                <span
-                                    class="flex min-h-10 min-w-10 items-center justify-center gap-2 rounded-xl border border-gray-700/60 bg-white/5 px-2.5 py-1.5 text-sm text-gray-300 transition-all duration-300 hover:scale-105 hover:border-gray-600 hover:bg-white/10 [&>svg]:size-6 [&>svg]:shrink-0"
-                                    title={tech}
-                                >
-                                    {IconComponent ? (
-                                        <IconComponent />
-                                    ) : (
-                                        <span>{tech}</span>
-                                    )}
-                                </span>
-                            );
-                        })}
-                    </div>
+                    <TechStack technologies={techstack} />
 
                     {/* Links */}
                     <div class="flex items-center gap-3">
@@ -134,13 +98,22 @@ const sortedProjects = projects.sort(
                                 Código
                             </a>
                         )}
-                        {links?.demo && links.demo !== "" && (
+                        <a
+                            href={`/projects/${id}`}
+                            class="flex items-center gap-2 rounded-full border border-gray-700 bg-white/5 px-3.5 py-2 text-sm font-medium text-gray-300 transition hover:bg-white/10 hover:text-white"
+                        >
+                            <Link class="size-4" />
+                            Ver detalles
+                        </a>
+                        {links?.demo && (
                             <a
-                                href={`/projects/${id}`}
+                                href={links.demo}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 class="flex items-center gap-2 rounded-full bg-white px-3.5 py-2 text-sm font-medium text-gray-900 shadow-sm transition hover:bg-gray-200"
                             >
                                 <Link class="size-4" />
-                                Ver detalles
+                                Demo
                             </a>
                         )}
                     </div>

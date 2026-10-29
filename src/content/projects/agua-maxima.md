@@ -9,7 +9,6 @@ imgs:
     - "../../assets/projects/agua-maxima/agua-maxima-render-2.webp"
     - "../../assets/projects/agua-maxima/agua-maxima-render-3.webp"
 links:
-  demo: "https://github.com/JavierMNew/"
   github: "https://github.com/JavierMNew/agua-maxima"
 techstack: ["Astro", "JavaScript", "TypeScript", "Node.js", "Tailwind", "Netlify"]
 personal: true

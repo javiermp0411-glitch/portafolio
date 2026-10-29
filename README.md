@@ -1,43 +1,42 @@
-# Astro Starter Kit: Minimal
+# Portafolio de Javier Montero
+
+Portafolio personal construido con Astro. Presenta experiencia profesional y proyectos mediante una página principal y páginas estáticas de detalle generadas desde Markdown.
+
+## Requisitos
+
+- Node.js `>=22.23.4`
+- npm
+
+## Desarrollo
 
 ```sh
-npm create astro@latest -- --template minimal
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Astro inicia el sitio en `http://localhost:4321`.
 
-## 🚀 Project Structure
+## Comandos
 
-Inside of your Astro project, you'll see the following folders and files:
+| Comando | Descripción |
+| --- | --- |
+| `npm run dev` | Inicia el servidor local |
+| `npm run build` | Genera el sitio estático en `dist/` |
+| `npm run preview` | Sirve localmente la última compilación |
+| `npm run astro -- --help` | Muestra ayuda de la CLI de Astro |
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+## Estructura
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+- `src/pages/`: rutas del sitio y páginas estáticas de proyectos.
+- `src/components/`: componentes Astro reutilizables, incluido el selector compartido de iconos tecnológicos.
+- `src/content/projects/`: contenido de proyectos en Markdown.
+- `src/content.config.ts`: esquema y validación de la colección de proyectos.
+- `src/assets/`: imágenes y documentos procesados por Astro.
+- `public/`: archivos servidos sin procesamiento, como el favicon.
+- `DESIGN.md`: especificación del sistema visual del proyecto.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Añadir o editar un proyecto
 
-Any static assets, like images, can be placed in the `public/` directory.
+Crea o modifica un archivo Markdown en `src/content/projects/`. El frontmatter se valida mediante `src/content.config.ts`; las imágenes deben referenciarse desde `src/assets/`.
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+`links.demo` es opcional y solo debe incluirse para una demo funcional. `links.github` también es opcional y contiene el enlace al código. Si no existe demo, omite `demo`; el botón correspondiente no se mostrará. Las páginas de detalle se generan automáticamente para cada proyecto.

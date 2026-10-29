@@ -4,7 +4,6 @@ description: "Juego digital inspirado en la tradicional Lotería Mexicana, desar
 imgs:
   main: "../../assets/projects/loteria/loteria-mexicana-render-1.webp"
 links:
-  demo: "https://github.com/JavierMNew/loteria"
   github: "https://github.com/JavierMNew/loteria"
 techstack: ["Java", "Maven", "JDBC", "SQL Server"]
 personal: true

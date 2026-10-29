@@ -1,0 +1,40 @@
+---
+import AstroIcon from "./icons/AstroIcon.astro";
+import Bootstrap from "./icons/Bootstrap.astro";
+import JavaScript from "./icons/JavaScript.astro";
+import MySQL from "./icons/MySQL.astro";
+import Node from "./icons/Node.astro";
+import PHP from "./icons/Php.astro";
+import React from "./icons/React.astro";
+import Tailwind from "./icons/Tailwind.astro";
+import TypeScript from "./icons/TypeScript.astro";
+
+const { technologies } = Astro.props;
+
+const TECH_ICONS = {
+    Astro: AstroIcon,
+    Tailwind,
+    TypeScript,
+    JavaScript,
+    PHP,
+    MySQL,
+    Bootstrap,
+    React,
+    Node,
+};
+---
+
+<div class="flex flex-wrap items-center gap-2.5">
+    {technologies.map((tech) => {
+        const IconComponent = TECH_ICONS[tech as keyof typeof TECH_ICONS];
+
+        return (
+            <span
+                class="flex min-h-10 min-w-10 items-center justify-center gap-2 rounded-xl border border-gray-700/60 bg-white/5 px-2.5 py-1.5 text-sm text-gray-300 transition-all duration-300 hover:scale-105 hover:border-gray-600 hover:bg-white/10 [&>svg]:size-6 [&>svg]:shrink-0"
+                title={tech}
+            >
+                {IconComponent ? <IconComponent /> : <span>{tech}</span>}
+            </span>
+        );
+    })}
+</div>

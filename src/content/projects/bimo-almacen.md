@@ -6,7 +6,6 @@ logo: "../../assets/projects/bimo/bimo-logo.png"
 imgs:
   main: "../../assets/projects/bimo/almacen/bimo-almacen-landing.webp"
 links:
-  demo: "https://github.com/Arellanox/nuevo_checkup"
   github: "https://github.com/Arellanox/nuevo_checkup/tree/almacen"
 techstack: ["PHP", "JavaScript", "MySQL", "Bootstrap"]
 personal: false

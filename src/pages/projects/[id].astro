@@ -6,27 +6,7 @@ import GitHub from "../../components/icons/GitHub.astro";
 import Link from "../../components/icons/Link.astro";
 import ArrowBackUp from "../../components/icons/ArrowBackUp.astro";
 import At from "../../components/icons/At.astro";
-import AstroIcon from "../../components/icons/AstroIcon.astro";
-import Tailwind from "../../components/icons/Tailwind.astro";
-import TypeScript from "../../components/icons/TypeScript.astro";
-import JavaScript from "../../components/icons/JavaScript.astro";
-import PHP from "../../components/icons/Php.astro";
-import MySQL from "../../components/icons/MySQL.astro";
-import Bootstrap from "../../components/icons/Bootstrap.astro";
-import React from "../../components/icons/React.astro";
-import Node from "../../components/icons/Node.astro";
-
-const TECH_ICONS: Record<string, any> = {
-    Astro: AstroIcon,
-    Tailwind: Tailwind,
-    TypeScript,
-    JavaScript,
-    PHP,
-    MySQL,
-    Bootstrap,
-    React,
-    Node,
-};
+import TechStack from "../../components/TechStack.astro";
 
 export async function getStaticPaths() {
     const projects = await getCollection("projects");
@@ -132,23 +112,7 @@ const formattedDate = new Date(pubDate).toLocaleDateString("es-ES", {
                 <h2 class="text-sm font-semibold uppercase tracking-wider text-gray-400">
                     Tecnologías
                 </h2>
-                <div class="flex flex-wrap items-center gap-2.5">
-                    {techstack.map((tech) => {
-                        const IconComponent = TECH_ICONS[tech];
-                        return (
-                            <span
-                                class="flex min-h-10 min-w-10 items-center justify-center gap-2 rounded-xl border border-gray-700/60 bg-white/5 px-2.5 py-1.5 text-sm text-gray-300 transition-all duration-300 hover:scale-105 hover:border-gray-600 hover:bg-white/10 [&>svg]:size-6 [&>svg]:shrink-0"
-                                title={tech}
-                            >
-                                {IconComponent ? (
-                                    <IconComponent />
-                                ) : (
-                                    <span>{tech}</span>
-                                )}
-                            </span>
-                        );
-                    })}
-                </div>
+                <TechStack technologies={techstack} />
             </div>
 
             {/* Approach / Story */}
