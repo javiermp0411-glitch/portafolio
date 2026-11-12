@@ -29,49 +29,53 @@ const { deliverables } = Astro.props;
 
     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
         {deliverables.map((item, index) => (
-            <article class="min-w-0">
+            <article class="deliverable-card group min-w-0">
                 <button
                     type="button"
-                    class="deliverable-trigger group block w-full text-left"
+                    class="deliverable-trigger group/image relative block aspect-[16/10] w-full cursor-pointer overflow-hidden rounded-xl border border-gray-800 bg-[#0c0c0c] text-left transition-colors duration-300 group-hover:border-gray-600"
                     data-deliverable={index}
                     aria-haspopup="dialog"
                     aria-controls="deliverable-viewer"
-                    aria-label={`Ver detalles de ${item.title}`}
+                    aria-label={`Ampliar ${item.title}`}
                 >
-                    <span class="relative block aspect-[16/10] overflow-hidden rounded-xl border border-gray-800 bg-[#0c0c0c] transition-colors duration-300 group-hover:border-gray-600">
-                        {item.img && (
-                            <img
-                                src={item.img.src}
-                                alt={`Vista de ${item.title}`}
-                                width={item.img.width}
-                                height={item.img.height}
-                                loading="lazy"
-                                decoding="async"
-                                class="h-full w-full object-contain transition-opacity duration-200 group-hover:opacity-80"
-                            />
-                        )}
-                        <span class="absolute right-3 bottom-3 rounded-full border border-white/15 bg-[#121212]/90 px-2.5 py-1 font-mono text-[10px] text-gray-300 opacity-0 backdrop-blur-sm transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100">
-                            Ampliar
-                        </span>
-                    </span>
-
-                    <span class="mt-4 block">
-                        <span class="flex items-baseline gap-3">
-                            <span class="shrink-0 font-mono text-[11px] text-gray-500">
-                                {String(index + 1).padStart(2, "0")}
-                            </span>
-                            <h3 class="text-base font-semibold text-gray-200 transition-colors duration-200 group-hover:text-white">
-                                {item.title}
-                            </h3>
-                        </span>
-                        <span class="mt-2 block text-sm leading-relaxed text-gray-400">
-                            {item.description}
-                        </span>
-                        <span class="mt-3 block font-mono text-[11px] uppercase tracking-wider text-gray-500 transition-colors duration-200 group-hover:text-gray-300">
-                            Ver detalles <span aria-hidden="true">↗</span>
-                        </span>
+                    {item.img && (
+                        <img
+                            src={item.img.src}
+                            alt={`Vista de ${item.title}`}
+                            width={item.img.width}
+                            height={item.img.height}
+                            loading="lazy"
+                            decoding="async"
+                            class="h-full w-full object-contain transition-opacity duration-200 group-hover:opacity-80"
+                        />
+                    )}
+                    <span class="absolute right-3 bottom-3 rounded-full border border-white/15 bg-[#121212]/90 px-2.5 py-1 font-mono text-[10px] text-gray-300 opacity-0 backdrop-blur-sm transition-opacity duration-200 group-hover/image:opacity-100 group-focus-visible/image:opacity-100">
+                        Ampliar
                     </span>
                 </button>
+
+                <div class="mt-4">
+                    <div class="flex items-baseline gap-3">
+                        <span class="shrink-0 font-mono text-[11px] text-gray-500">
+                            {String(index + 1).padStart(2, "0")}
+                        </span>
+                        <h3 class="text-base font-semibold text-gray-200 transition-colors duration-200 group-hover:text-white">
+                            {item.title}
+                        </h3>
+                    </div>
+                    <p class="mt-2 text-sm leading-relaxed text-gray-400">
+                        {item.description}
+                    </p>
+                    <button
+                        type="button"
+                        class="deliverable-trigger mt-3 inline-flex cursor-pointer gap-1 font-mono text-[11px] uppercase tracking-wider text-gray-500 transition-colors duration-200 hover:text-gray-300"
+                        data-deliverable={index}
+                        aria-haspopup="dialog"
+                        aria-controls="deliverable-viewer"
+                    >
+                        Ver detalles <span aria-hidden="true">↗</span>
+                    </button>
+                </div>
             </article>
         ))}
     </div>
@@ -193,8 +197,7 @@ const { deliverables } = Astro.props;
 <style>
     .deliverable-trigger:focus-visible {
         outline: 2px solid #d1d5db;
-        outline-offset: 6px;
-        border-radius: 0.75rem;
+        outline-offset: 4px;
     }
 
     #deliverable-viewer[open] {
