@@ -27,12 +27,12 @@ const { deliverables } = Astro.props;
         </p>
     </header>
 
-    <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
+    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
         {deliverables.map((item, index) => (
-            <article class="deliverable-card group min-w-0">
+            <article class="deliverable-card min-w-0 rounded-2xl border border-gray-800 bg-transparent p-4 shadow-lg transition-all duration-300 hover:border-gray-700 hover:bg-white/[0.03]">
                 <button
                     type="button"
-                    class="deliverable-trigger group/image relative block aspect-[16/10] w-full cursor-pointer overflow-hidden rounded-xl border border-gray-800 bg-[#0c0c0c] text-left transition-colors duration-300 group-hover:border-gray-600"
+                    class="deliverable-trigger group/image relative block aspect-[16/10] w-full cursor-pointer overflow-hidden rounded-xl border border-gray-800 bg-[#0c0c0c] text-left transition-colors duration-300 hover:border-gray-600"
                     data-deliverable={index}
                     aria-haspopup="dialog"
                     aria-controls="deliverable-viewer"
@@ -46,7 +46,7 @@ const { deliverables } = Astro.props;
                             height={item.img.height}
                             loading="lazy"
                             decoding="async"
-                            class="h-full w-full object-contain transition-opacity duration-200 group-hover:opacity-80"
+                            class="h-full w-full object-cover transition-[opacity,transform] duration-300 ease-out group-hover/image:scale-[1.03] group-hover/image:opacity-85 group-focus-visible/image:scale-[1.03] group-focus-visible/image:opacity-85 motion-reduce:transform-none"
                         />
                     )}
                     <span class="absolute right-3 bottom-3 rounded-full border border-white/15 bg-[#121212]/90 px-2.5 py-1 font-mono text-[10px] text-gray-300 opacity-0 backdrop-blur-sm transition-opacity duration-200 group-hover/image:opacity-100 group-focus-visible/image:opacity-100">
@@ -59,7 +59,7 @@ const { deliverables } = Astro.props;
                         <span class="shrink-0 font-mono text-[11px] text-gray-500">
                             {String(index + 1).padStart(2, "0")}
                         </span>
-                        <h3 class="text-base font-semibold text-gray-200 transition-colors duration-200 group-hover:text-white">
+                        <h3 class="text-base font-semibold text-gray-200">
                             {item.title}
                         </h3>
                     </div>
