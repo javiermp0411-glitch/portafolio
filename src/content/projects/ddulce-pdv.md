@@ -7,7 +7,7 @@ imgs:
   main: "../../assets/projects/daylu-dulce/pdv/daylu-dulce-pdv-landing.webp"
 links:
   github: "https://github.com/javiermp0411-glitch/ddulce-pdv"
-techstack: ["Astro", "React", "TypeScript", "Tailwind CSS", "Supabase"]
+techstack: ["Astro", "React", "TypeScript", "Tailwind", "Supabase"]
 personal: true
 approach: "Daylú Dulce es un proyecto personal creado para apoyar la operación diaria de una paletería familiar. Mi enfoque fue construir algo más que una pantalla de cobro: un sistema donde el catálogo, las existencias y las ventas compartieran la misma información. Por eso, cada cobro actualiza el almacén y el PDV impide vender más unidades de las disponibles. También incorporé reglas particulares del negocio, como productos con distintos sabores, paletas preparadas, promociones que descuentan varias unidades y ropa vendida con precio capturado al momento. Separé la landing pública, construida con Astro, de la aplicación operativa, desarrollada como una isla interactiva de React. Supabase concentra la autenticación, la persistencia y las funciones de administración de usuarios. La identidad visual utiliza rosa pastel mexicano, superficies color crema y textos en español para crear una experiencia cercana y fácil de consultar."
 pubDate: 2026-11-05
