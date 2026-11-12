@@ -1,38 +1,110 @@
 ---
+import ArrowLeft from "./icons/ArrowLeft.astro";
+
 const navItems = [
     { title: "inicio", url: "/#home" },
     { title: "experiencia", url: "/#experience" },
     { title: "proyectos", url: "/#projects" },
 ];
+
+const isProjectPage = Astro.url.pathname.startsWith("/projects/");
+const panelClasses =
+    "absolute inset-0 flex items-center justify-center transition-[opacity,transform] duration-300 ease-out";
 ---
 
 <nav
     id="floating-nav"
     aria-label="Main navigation"
-    class="fixed bottom-0 left-0 z-50 w-full border-t border-gray-800 bg-[#121212]/95 backdrop-blur-md transition-all duration-500 ease-out"
+    transition:persist="floating-nav"
+    transition:animate="none"
+    class="fixed bottom-0 left-0 z-50 w-full border-t border-gray-800 bg-[#121212]/95 backdrop-blur-md"
 >
-    <div class="mx-auto flex h-14 max-w-4xl items-center justify-center px-4">
-        <div class="flex items-center justify-center gap-6 sm:gap-10">
-            {navItems.map((link) => (
-                <a
-                    class="nav-link relative py-1 font-mono text-[11px] uppercase tracking-wider text-gray-400 transition-all duration-300 hover:text-white sm:text-xs"
-                    href={link.url}
-                    data-section={link.url.replace("/#", "")}
-                >
-                    {link.title}
-                    <span class="absolute -bottom-1 left-0 h-px w-full origin-center scale-x-0 bg-white transition-transform duration-300" />
-                </a>
-            ))}
+    <div class="relative mx-auto h-14 w-full max-w-4xl px-4">
+        <div
+            id="nav-section-links"
+            aria-hidden={isProjectPage ? "true" : undefined}
+            inert={isProjectPage}
+            class:list={[
+                panelClasses,
+                { "pointer-events-none translate-y-1 opacity-0": isProjectPage },
+            ]}
+        >
+            <div class="flex items-center justify-center gap-6 sm:gap-10">
+                {navItems.map((link) => (
+                    <a
+                        class="nav-link relative py-1 font-mono text-[11px] uppercase tracking-wider text-gray-400 transition-all duration-300 hover:text-white sm:text-xs"
+                        href={link.url}
+                        data-section={link.url.replace("/#", "")}
+                    >
+                        {link.title}
+                        <span class="absolute -bottom-1 left-0 h-px w-full origin-center scale-x-0 bg-white transition-transform duration-300" />
+                    </a>
+                ))}
+            </div>
+        </div>
+
+        <div
+            id="nav-back-panel"
+            aria-hidden={!isProjectPage ? "true" : undefined}
+            inert={!isProjectPage}
+            class:list={[
+                panelClasses,
+                { "pointer-events-none translate-y-1 opacity-0": !isProjectPage },
+            ]}
+        >
+            <a
+                id="nav-back"
+                href="/#projects"
+                class="flex items-center gap-2 py-1 font-mono text-[11px] uppercase tracking-wider text-gray-400 transition-colors duration-300 hover:text-white sm:text-xs"
+            >
+                Volver
+            </a>
         </div>
     </div>
 </nav>
 
 <script>
+    import type { TransitionBeforePreparationEvent } from "astro:transitions";
+
+    let hasInternalHistory =
+        window.location.pathname === "/" ||
+        Boolean(
+            document.referrer &&
+                new URL(document.referrer).origin === window.location.origin,
+        );
+
+    const setPanelVisible = (panel: HTMLElement, visible: boolean) => {
+        panel.classList.toggle("opacity-0", !visible);
+        panel.classList.toggle("translate-y-1", !visible);
+        panel.classList.toggle("pointer-events-none", !visible);
+        panel.toggleAttribute("inert", !visible);
+        if (visible) {
+            panel.removeAttribute("aria-hidden");
+        } else {
+            panel.setAttribute("aria-hidden", "true");
+        }
+    };
+
+    document.addEventListener("astro:before-preparation", (event) => {
+        const sectionLinks = document.getElementById("nav-section-links");
+        const backPanel = document.getElementById("nav-back-panel");
+        if (!sectionLinks || !backPanel) return;
+
+        hasInternalHistory = true;
+        const isProjectPage = (
+            event as TransitionBeforePreparationEvent
+        ).to.pathname.startsWith("/projects/");
+
+        setPanelVisible(sectionLinks, !isProjectPage);
+        setPanelVisible(backPanel, isProjectPage);
+    });
+
     document.addEventListener("astro:page-load", () => {
+        const nav = document.getElementById("floating-nav");
         const sections = document.querySelectorAll("section[id], footer[id]");
         const links = document.querySelectorAll(".nav-link");
 
-        if (!links.length) return;
+        if (!nav || !links.length) return;
 
         const setActive = (id: string) => {
             links.forEach((link) => {
@@ -45,6 +117,25 @@ const navItems = [
                 indicator?.classList.toggle("scale-x-0", !active);
             });
         };
+
+        if (!nav.dataset.initialized) {
+            nav.dataset.initialized = "true";
+            nav.addEventListener("click", (event) => {
+                const target = event.target;
+                if (!(target instanceof Element)) return;
+
+                if (target.closest("#nav-back")) {
+                    if (!hasInternalHistory) return;
+                    event.preventDefault();
+                    window.history.back();
+                    return;
+                }
+
+                const link = target.closest(".nav-link");
+                const id = link?.getAttribute("data-section");
+                if (id) setActive(id);
+            });
+        }
 
         const sectionObserver = new IntersectionObserver(
             (entries) => {
@@ -59,12 +150,8 @@ const navItems = [
         );
 
         sections.forEach((section) => sectionObserver.observe(section));
-
-        links.forEach((link) => {
-            link.addEventListener("click", () => {
-                const id = link.getAttribute("data-section");
-                if (id) setActive(id);
-            });
-        });
+        document.addEventListener("astro:before-swap", () => {
+            sectionObserver.disconnect();
+        }, { once: true });
     });
 </script>

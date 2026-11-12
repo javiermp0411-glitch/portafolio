@@ -1,1 +1,26 @@
 @import "tailwindcss";
+
+/* Keep shared project images below the persistent navigation during transitions. */
+::view-transition-group(*) {
+    z-index: 1;
+}
+
+::view-transition-group(floating-nav) {
+    z-index: 50;
+    animation: none;
+}
+
+::view-transition-old(floating-nav),
+::view-transition-new(floating-nav) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+::view-transition-old(floating-nav) {
+    display: none;
+}
+
+::view-transition-new(floating-nav) {
+    height: 100%;
+    object-fit: none;
+}
