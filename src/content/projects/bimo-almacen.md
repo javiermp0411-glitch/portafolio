@@ -1,5 +1,5 @@
 ---
-company: BIMO
+company: Bimo
 title: Sistema de Gestión de Inventario ERP
 description: Módulo ERP personalizado para BIMO, empresa de biología molecular. Desarrollé componentes clave para la gestión de artículos, movimientos, requisiciones y control de accesos por roles.
 logo: "../../assets/projects/bimo/bimo-logo.png"
