@@ -7,6 +7,7 @@ import Link from "../../components/icons/Link.astro";
 import ArrowBackUp from "../../components/icons/ArrowBackUp.astro";
 import At from "../../components/icons/At.astro";
 import TechStack from "../../components/TechStack.astro";
+import Deliverables from "../../components/Deliverables.astro";
 
 export async function getStaticPaths() {
     const projects = await getCollection("projects");
@@ -129,65 +130,7 @@ const formattedDate = new Date(pubDate).toLocaleDateString("es-ES", {
 
             {/* Deliverables */}
             {deliverables && deliverables.length > 0 && (
-                <section class="flex flex-col gap-5 border-t border-gray-800 pt-5">
-                    <h2 class="text-sm font-semibold uppercase tracking-wider text-gray-400">
-                        Entregables y módulos
-                    </h2>
-                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-12">
-                        {deliverables.map((item, idx) => (
-                            <article class:list={[
-                                "group overflow-hidden rounded-2xl border border-gray-800 bg-white/[0.02] transition-colors hover:border-gray-600",
-                                idx % 5 === 0 ? "sm:col-span-2 lg:col-span-7" : "lg:col-span-5",
-                            ]}>
-                                {item.img ? (
-                                    <>
-                                        <button type="button" class="deliverable-trigger relative block w-full cursor-zoom-in overflow-hidden text-left" aria-label={`Ampliar ${item.title}`}>
-                                            <img src={item.img.src} alt={item.title} loading="lazy" class="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
-                                            <span class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-5 pb-4 pt-10">
-                                                <span class="text-sm font-medium text-white">Ver detalles <span aria-hidden="true">↗</span></span>
-                                            </span>
-                                        </button>
-                                        <dialog class="deliverable-dialog m-auto w-[min(92vw,800px)] max-w-none overflow-hidden rounded-2xl border border-gray-700 bg-[#171717] p-0 text-gray-200 shadow-2xl backdrop:bg-black/80">
-                                            <div class="relative">
-                                                <img src={item.img.src} alt={item.title} class="max-h-[65vh] w-full bg-black object-contain" />
-                                                <button type="button" class="dialog-close absolute right-3 top-3 cursor-pointer rounded-full border border-white/20 bg-black/70 px-3 py-2 text-sm text-white hover:bg-black" aria-label="Cerrar">Cerrar ✕</button>
-                                            </div>
-                                            <div class="p-5 sm:p-7">
-                                                <p class="mb-2 text-xs font-medium uppercase tracking-wider text-gray-400">Entregable {String(idx + 1).padStart(2, "0")}</p>
-                                                <h3 class="text-xl font-semibold text-white sm:text-2xl">{item.title}</h3>
-                                                <p class="mt-3 text-sm leading-relaxed text-gray-300">{item.description}</p>
-                                                {item.metrics && item.metrics.length > 0 && <div class="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">{item.metrics.map((metric) => <div class="rounded-xl border border-gray-800 bg-white/[0.03] p-3"><div class="font-bold text-white">{metric.value}</div><div class="text-xs text-gray-400">{metric.label}</div></div>)}</div>}
-                                            </div>
-                                        </dialog>
-                                    </>
-                                ) : (
-                                    <div class="p-5">
-                                        <span class="text-xs text-gray-500">{String(idx + 1).padStart(2, "0")} · Entregable</span>
-                                        <h3 class="mt-2 text-lg font-semibold text-white">{item.title}</h3>
-                                        <p class="mt-2 text-sm leading-relaxed text-gray-300">{item.description}</p>
-                                    </div>
-                                )}
-                            </article>
-                        ))}
-                    </div>
-                    <script>
-                        document.querySelectorAll(".deliverable-trigger").forEach((trigger) => {
-                            const dialog = trigger.nextElementSibling;
-                            if (!(dialog instanceof HTMLDialogElement)) return;
-                            trigger.addEventListener("click", () => {
-                                dialog.showModal();
-                                document.body.style.overflow = "hidden";
-                            });
-                            dialog.querySelector(".dialog-close")?.addEventListener("click", () => dialog.close());
-                            dialog.addEventListener("close", () => {
-                                document.body.style.overflow = "";
-                            });
-                            dialog.addEventListener("click", (event) => {
-                                if (event.target === dialog) dialog.close();
-                            });
-                        });
-                    </script>
-                </section>
+                <Deliverables deliverables={deliverables} />
             )}
 
             {/* Markdown slot content if any */}
